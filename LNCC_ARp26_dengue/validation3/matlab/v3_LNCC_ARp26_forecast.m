@@ -201,7 +201,7 @@ state_code=M{1,2}*ones(size(pred));
 T = table(epiweek,lower_95,lower_90,lower_80,lower_50,pred,upper_50,...
     upper_80,upper_90,upper_95,state_code);
 
-writetable(T,['..\planilhas\v3_ARp26_',UF,'.csv'],'Delimiter',',')
+writetable(T,['..\spreadsheets\v3_ARp26_',UF,'.csv'],'Delimiter',',')
 
 % Generate plots for each state and saves in PDF files separately
 
