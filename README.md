@@ -1,32 +1,55 @@
 Team and Contributors
 
 D-FENSE
-Americo Cunha Jr (team leader)
+
+Americo Cunha Jr (team leader) (LNCC - UERJ)
+
 Paulo Esquef (LNCC)
+
 Emanuelle Paixão (LNCC)
+
 
 2. Repository Structure
 
 Main
 |_>  Aggredated Data
+
      (Data used to train the model)
+     
 |_>  LNCC_ARp26_dengue  (model source and results)
+
      |_> validation1    (tranining for validation 1) 
+     
          |_> matlab    (matlab scritps to generate the results)
+         
          |_> spreadsheets  (CSV files with the results; one for each state)
+         
          |_> plots   (PDF files with plots of the results; one for each state)
+         
      |_> validation2  (see validation 1)
+     
          |_> matlab
+         
          |_> spreadsheets
+         
          |_> plots
+         
      |_> validation3 (see validation 1)
+     
          |_> matlab
+         
          |_> spreadsheets
+         
          |_> plots
+         
      |_> validation4  (see validation 1)
+     
          |_> matlab
+         
          |_> spreadsheets
+         
          |_> plots
+         
          
 3. Libraries and Dependencies
 
