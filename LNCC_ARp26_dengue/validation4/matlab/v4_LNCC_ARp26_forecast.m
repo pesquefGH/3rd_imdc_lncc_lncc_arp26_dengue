@@ -17,6 +17,9 @@
 % 5) Plot the obtained time-series forecast (mean, upper- and lower-bounds
 % of the prediction intervals)
 
+SUNDAYS = readtable('sunday_dates.csv');  % reads CSV with Sunday dates
+S_dates=SUNDAYS{:,1};   % Sunday dates format YYYY-MM-DD
+
 
 M = readtable(['IMDC2026_AggregatedData_',UF,'.csv']); 
 % reads data related to the selected state
@@ -183,7 +186,7 @@ indf_end=716+52+52+52; % time index of the EW 40 2026
 
 % Writes a CSV file with the known and forecast data
 
-epiweek=[(202541:202552)';(202601:202640)'];
+date=S_dates(indf_ini:indf_end);  % epidemic weeks to be forecast 
 pred_range=indf_end+1-indf_ini; % forecast range
 gapf=15;  % gap in samples from EW 26 2025 to EW 40 2025  
 pred(1:gapf)=[]; pred=pred(1:pred_range);
@@ -198,8 +201,8 @@ upper_95(1:gapf)=[]; upper_95=upper_95(1:pred_range); % 97.5% quartile
 
 state_code=M{1,2}*ones(size(pred));
 
-T = table(epiweek,lower_95,lower_90,lower_80,lower_50,pred,upper_50,...
-    upper_80,upper_90,upper_95,state_code);
+T = table(date,pred,lower_50,upper_50,lower_80,upper_80,lower_90,...
+    upper_90,lower_95,upper_95);
 
 writetable(T,['..\spreadsheets\v4_ARp26_',UF,'.csv'],'Delimiter',',')
 
