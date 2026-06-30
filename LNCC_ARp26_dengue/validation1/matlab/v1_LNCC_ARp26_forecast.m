@@ -149,7 +149,7 @@ for kk=1:MC
     % extrapolated signal with case predicted values
     cases_prediction=2.^(cases_prediction+mcc); % maps back to the 
     % original scale
-    CP_v(kk,:)=cases_prediction; % store forecast values
+    CP_v(kk,:)=max(cases_prediction,0.1); % store forecast values
 end
 
 % Calculate statistics based on the set of forecast sequences
@@ -159,31 +159,32 @@ end
 
 
 set_prctile=[2.5 5 10 25 50 75 90 95 97.5]; % 2.5 to 97.5% percentiles
-PP=prctile(CP_v,set_prctile); % calculates the percentiles and stores in PP
-lower_95 = PP(1,:);  % 2.5% percentile 
-lower_90 = PP(2,:);  % 5% percentile
-lower_80 = PP(3,:);  % 10% percentile
-lower_50 = PP(4,:);  % 25% percentile
-pred = PP(5,:);  % 50% percentile - median prediction
-upper_50 = PP(6,:); % 75% percentile
-upper_80 = PP(7,:); % 90% percentile 
-upper_90 = PP(8,:); % 95% percentile 
-upper_95 = PP(9,:); % 97.5% percentile 
+PP=prctile(CP_v,set_prctile,1); % calculates the percentiles and stores in PP
+lower_95 = log2(PP(1,:));  % 2.5% percentile 
+lower_90 = log2(PP(2,:));  % 5% percentile
+lower_80 = log2(PP(3,:));  % 10% percentile
+lower_50 = log2(PP(4,:));  % 25% percentile
+pred = log2(PP(5,:));  % 50% percentile - median prediction
+upper_50 = log2(PP(6,:)); % 75% percentile
+upper_80 = log2(PP(7,:)); % 90% percentile 
+upper_90 = log2(PP(8,:)); % 95% percentile 
+upper_95 = log2(PP(9,:)); % 97.5% percentile 
+
 
 % Note: the forecast results (mean, upper and lower bounds) are then 
 % filtered by an SSA (Singular Spectral Analysis) reconstruction filter.
 
 L=20; % window length for the SSA filter
 nsv=5; % number of selected eigenvalues (ordered)
-[pred]=round(ssa_modPE(pred,L,nsv)); % filtered mean forecast
-[lower_95]=round(ssa_modPE(lower_95,L,nsv));  % filtered 2.5% quartile
-[lower_90]=round(ssa_modPE(lower_90,L,nsv));  % filtered 5% quartile
-[lower_80]=round(ssa_modPE(lower_80,L,nsv));  % filtered 10% quartile
-[lower_50]=round(ssa_modPE(lower_50,L,nsv));  % filtered 25% quartile
-[upper_50]=round(ssa_modPE(upper_50,L,nsv));  % filtered 75% quartile
-[upper_80]=round(ssa_modPE(upper_80,L,nsv));  % filtered 90% quartile
-[upper_90]=round(ssa_modPE(upper_90,L,nsv));  % filtered 95% quartile
-[upper_95]=round(ssa_modPE(upper_95,L,nsv));  % filtered 97.5% quartile
+[pred]=round(2.^ssa_modPE(pred,L,nsv)); % filtered mean forecast
+[lower_95]=round(2.^ssa_modPE(lower_95,L,nsv));  % filtered 2.5% quartile
+[lower_90]=round(2.^ssa_modPE(lower_90,L,nsv));  % filtered 5% quartile
+[lower_80]=round(2.^ssa_modPE(lower_80,L,nsv));  % filtered 10% quartile
+[lower_50]=round(2.^ssa_modPE(lower_50,L,nsv));  % filtered 25% quartile
+[upper_50]=round(2.^ssa_modPE(upper_50,L,nsv));  % filtered 75% quartile
+[upper_80]=round(2.^ssa_modPE(upper_80,L,nsv));  % filtered 90% quartile
+[upper_90]=round(2.^ssa_modPE(upper_90,L,nsv));  % filtered 95% quartile
+[upper_95]=round(2.^ssa_modPE(upper_95,L,nsv));  % filtered 97.5% quartile
 
 
 indf_ini=665; % time index of the EW 41 2022
