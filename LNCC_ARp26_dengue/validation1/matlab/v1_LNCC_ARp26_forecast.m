@@ -191,7 +191,8 @@ indf_end=716; % time index of the EW 40 2023
 
 % Writes a CSV file with the known and forecast data
 
-date=S_dates(indf_ini:indf_end);  % epidemic weeks to be forecast 
+date=S_dates(667:718);  % Sunday dates for validation 1
+
 
 pred_range=indf_end+1-indf_ini; % forecast range
 gapf=15;  % gap in samples from EW 26 2022 to EW  40 2022  
