@@ -1,4 +1,4 @@
-Team and Contributors
+1. Team and Contributors
 
 D-FENSE
 
