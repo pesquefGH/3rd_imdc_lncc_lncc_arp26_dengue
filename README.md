@@ -50,7 +50,7 @@ Main
          
          |_> plots
 
-     |_> forecast_27  (see validation 1)
+     |_> forecast27  (see validation 1)
      
          |_> matlab
          
